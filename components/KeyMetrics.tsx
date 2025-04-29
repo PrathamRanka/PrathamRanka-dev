@@ -25,7 +25,7 @@ const metrics = [
   },
   {
     id: 4,
-    value: '99%',
+    value: '69%',
     label: 'Code Quality',
     description: 'Committed to writing clean, efficient, and maintainable code.',
   },
