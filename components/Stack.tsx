@@ -15,11 +15,9 @@ import {
 const stackItems = [
   { id: 1, name: 'React', icon: SiReact, color: '#61DAFB' },
   { id: 2, name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
-  // { id: 3, name: 'Python', icon: SiPython, color: '#3776AB' },
   { id: 4, name: 'C++', icon: SiCplusplus, color: '#00599C' },
   { id: 5, name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
   { id: 6, name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-  // { id: 7, name: 'TensorFlow', icon: SiTensorflow, color: '#FF6F20' },
   { id: 8, name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' }
 ];
 
