@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import {
   SiReact,
   SiNextdotjs,
-  SiPython,
   SiCplusplus,
   SiTypescript,
   SiTailwindcss,
-  SiTensorflow,
   SiJavascript
 } from "react-icons/si";
 
