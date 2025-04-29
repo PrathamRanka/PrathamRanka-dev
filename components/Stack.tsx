@@ -19,7 +19,8 @@ const stackItems = [
   { id: 8, name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' }
 ];
 
-export const Stack = () => {
+// Changed to default export which is more common in Next.js components
+const Stack = () => {
   return (
     <section className="py-16" style={{ backgroundColor: '#131313' }}>
       <div className="max-w-[1200px] mx-auto px-4">
@@ -31,7 +32,7 @@ export const Stack = () => {
               className="relative flex items-center justify-center flex-col rounded-xl p-6 bg-white/5 hover:bg-white/10 transition-all duration-300 transform hover:scale-110 hover:shadow-2xl hover:bg-opacity-20 group"
             >
               <div className="mb-4 p-6 rounded-xl flex items-center justify-center transition-all duration-300 transform group-hover:scale-125 group-hover:shadow-lg">
-                <item.icon className="w-20 h-20" style={{ color: item.color }} />
+                {item.icon && <item.icon className="w-20 h-20" style={{ color: item.color }} />}
               </div>
               <p className="text-gray-300 font-semibold text-lg transition-all duration-300 transform group-hover:text-white">{item.name}</p>
             </div>
@@ -41,3 +42,8 @@ export const Stack = () => {
     </section>
   );
 };
+
+export default Stack;
+
+// Also export as named export for compatibility
+export { Stack };
