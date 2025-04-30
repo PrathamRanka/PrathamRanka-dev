@@ -57,8 +57,8 @@ export const Contact = () => {
               <div className="space-y-2">
                 <p className="text-3xl text-gray-300">Workspace</p>
                 <address className="text-lg not-italic leading-relaxed">
-                Thapar University<br />
-                  Patiala <br />
+                Thapar Institute of Engineering and Technology<br />
+                  Patiala, 
                   Punjab 147004
                 </address>
               </div>

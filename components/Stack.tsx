@@ -19,13 +19,12 @@ const stackItems = [
   { id: 8, name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' }
 ];
 
-// Changed to default export which is more common in Next.js components
 const Stack = () => {
   return (
     <section className="py-16" style={{ backgroundColor: '#131313' }}>
       <div className="max-w-[1200px] mx-auto px-4">
         <h2 className="text-5xl font-bold mb-8 text-white text-center">My Tech Stack</h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {stackItems.map((item) => (
             <div
               key={item.id}
@@ -44,6 +43,4 @@ const Stack = () => {
 };
 
 export default Stack;
-
-// Also export as named export for compatibility
 export { Stack };
