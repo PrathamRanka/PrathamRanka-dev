@@ -32,7 +32,7 @@ export const Contact = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="glass p-8 rounded-2xl space-y-8"
             >
-              <div className="space-y-2">
+              {/* <div className="space-y-2">
                 <p className="text-3xl text-gray-300">Phone</p>
                 <a
                   href="tel:+917023206003"
@@ -41,7 +41,7 @@ export const Contact = () => {
                   +91 7023206003
                   <span className="text-gray-500 font-bold">↗</span>
                 </a>
-              </div>
+              </div> */}
 
               <div className="space-y-2">
                 <p className="text-3xl text-gray-300">Email</p>
