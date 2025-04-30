@@ -34,7 +34,7 @@ export const Hero = () => {
             className="relative grid min-h-screen place-content-center overflow-hidden px-4 py-24 text-gray-200"
         >
             <div className="z-10 flex flex-col items-center">
-                <span className="mb-1.5 inline-block rounded-full bg-gray-600/50 px-3 py-1.5 text-sm">
+                <span className="mb-3 inline-block rounded-full bg-gray-600/50 px-3 py-1.5 text-sm">
                     Open for Work
                 </span>
                 <h1 className="text-white/40 text-7xl font-black">Hi, I am</h1>
@@ -77,7 +77,7 @@ export const Hero = () => {
                 </p>
 
                 {/* Center the "Download CV" button */}
-                <motion.div className="flex justify-center">
+                <motion.div className="flex justify-center items-center">
                     <a
                         href="https://drive.google.com/uc?export=download&id=1Ni3olV9JcuZtn2wXhkWf1Hb3EgyL_eBq"
                         download="Pratham_Ranka_Resume.pdf"
