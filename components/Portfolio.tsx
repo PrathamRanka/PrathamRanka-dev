@@ -33,7 +33,7 @@ const projects = [
 const COLORS_TOP = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
 
 export const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState(projects[0])
+  const [selectedProject, setSelectedProject] = useState(null)
   const color = useMotionValue(COLORS_TOP[0])
 
   useEffect(() => {
@@ -56,16 +56,19 @@ export const Portfolio = () => {
 
   const handleProjectClick = (project) => {
     if (project.id === 1) {
-      // If Veri-Doc is already selected, open its link in a new tab
-      if (selectedProject.id === project.id) {
+      // If Veri-Doc is clicked, open the website in a new tab
+      if (selectedProject && selectedProject.id === project.id) {
         window.open(project.href, '_blank');
       } else {
-        // Set Veri-Doc as the selected project and show its description
-        setSelectedProject(project);
+        setSelectedProject(project); // Show description if it's not already selected
       }
     } else {
-      // For other projects, simply set them as the selected project
-      setSelectedProject(project);
+      // For other projects, toggle the description
+      if (selectedProject && selectedProject.id === project.id) {
+        setSelectedProject(null); // Close the description if already open
+      } else {
+        setSelectedProject(project); // Show the description
+      }
     }
   }
 
@@ -88,15 +91,15 @@ export const Portfolio = () => {
             <p className="text-gray-400 text-lg mb-1">{project.year}</p>
             <h3
               className={`text-3xl font-extrabold uppercase group-hover:text-gray-400 transition-colors duration-300 ${
-                selectedProject.id === project.id ? 'text-gray-200' : ''
+                selectedProject && selectedProject.id === project.id ? 'text-gray-200' : ''
               }`}
               style={{
-                textShadow: selectedProject.id === project.id ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '',
+                textShadow: selectedProject && selectedProject.id === project.id ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '',
               }}
             >
               {project.title}
             </h3>
-            {selectedProject.id === project.id && (
+            {selectedProject && selectedProject.id === project.id && (
               <div className="mt-4 flex flex-col md:flex-row items-start gap-6">
                 <p className="text-gray-400 transition-all duration-500 ease-in-out md:w-1/2">
                   {project.description}
