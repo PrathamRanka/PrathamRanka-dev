@@ -1,3 +1,4 @@
+"use client";
 import { Hero } from "@/components/Hero";
 import { Stack } from '@/components/Stack';
 import { LogoAnimation } from "@/components/LogoAnimation";
@@ -9,17 +10,25 @@ import { Navbar } from "@/components/Navbar";
 
 
 export default function Home() {
+
   return (
-   <>
-   <Navbar/> 
-    <Hero/>
-    <Stack/>
-    <LogoAnimation/>
-    <Portfolio/>
-    <KeyMetrics/>
-    <Contact/>
-    <Footer/>
-   </>
-    
+    <>
+      <Navbar />
+      <section id="about">
+        <Hero />
+      </section>
+      <section id="stack">
+        <Stack />
+      </section>
+      <LogoAnimation />
+      <section id="portfolio">
+        <Portfolio />
+      </section>
+      <KeyMetrics />
+      <section id="contact">
+        <Contact />
+      </section>
+      <Footer />
+    </>
   );
 }

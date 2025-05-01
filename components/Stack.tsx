@@ -7,16 +7,18 @@ import {
   SiCplusplus,
   SiTypescript,
   SiTailwindcss,
-  SiJavascript
+  SiJavascript,
+  SiC
 } from "react-icons/si";
 
 const stackItems = [
-  { id: 1, name: 'React', icon: SiReact, color: '#61DAFB' },
-  { id: 2, name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
-  { id: 4, name: 'C++', icon: SiCplusplus, color: '#00599C' },
-  { id: 5, name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-  { id: 6, name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-  { id: 8, name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' }
+  { id: 1, name: 'C', icon: SiC, color: '#06B6D4' },
+  { id: 2, name: 'C++', icon: SiCplusplus, color: '#00599C' },
+  { id: 3, name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+  { id: 4, name: 'React', icon: SiReact, color: '#61DAFB' },
+  { id: 5, name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+  { id: 6, name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
+  { id: 7, name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' }
 ];
 
 const Stack = () => {

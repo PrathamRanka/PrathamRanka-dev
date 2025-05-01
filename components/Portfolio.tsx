@@ -7,17 +7,18 @@ const projects = [
   {
     id: 1,
     year: 2025,
-    title: 'AI-Powered Crop Disease Detection Platform',
+    title: 'Veri-Doc',
     description:
-      'A web application that uses machine learning to identify crop diseases from images. Provided tailored treatment recommendations of wheat by linking predictions to a database of 15 wheat crop diseases.',
+      'I led the development of a responsive, light-themed frontend for a decentralized document verification platform that enables secure, tamper-proof verification without storing data centrally. By optimizing the UX, users could verify documents in just 3 clicks, reducing average time by 47%. The platform achieved a 100% Lighthouse mobile responsiveness score and completed over 200 successful verifications during testing. Collaborating with the blockchain team, we ensured a privacy-first design that empowers users with full document ownership and seamless cross-device access.',
     image: '/proj5.png',
+    href: 'https://veri-doc.vercel.app/',
   },
   {
     id: 2,
-    year: 2024,
-    title: 'Creative Agency Website',
+    year: 2025,
+    title: 'AI-Powered Crop Disease Detection Platform',
     description:
-      'A responsive website for a creative agency, showcasing their portfolio and services. Built with HTML, CSS & JS. The website includes sections for client testimonials, case studies, and detailed service descriptions. It was designed to reflect the creative and innovative ethos of the agency, with smooth animations, a clean design, and a mobile-first approach to ensure accessibility across devices.',
+      'A web application that uses machine learning to identify crop diseases from images. Provided tailored treatment recommendations of wheat by linking predictions to a database of 15 wheat crop diseases.',
     image: '/proj5.png',
   },
   {
@@ -67,7 +68,13 @@ export const Portfolio = () => {
         {projects.map((project) => (
           <div
             key={project.id}
-            onClick={() => setSelectedProject(project)}
+            onClick={() => {
+              if (project.id === 1) {
+                window.open(project.href, '_blank');
+              } else {
+                setSelectedProject(project);
+              }
+            }}
             className="cursor-pointer mb-8 group" // Reduced margin-bottom
           >
             <p className="text-gray-400 text-lg mb-1">{project.year}</p> {/* Reduced margin */}
