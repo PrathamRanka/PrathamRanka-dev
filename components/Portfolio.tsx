@@ -1,4 +1,3 @@
-'use client'
 import React, { useState, useEffect } from 'react'
 import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion'
 import Image from 'next/image'
@@ -55,29 +54,38 @@ export const Portfolio = () => {
 
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`
 
+  const handleProjectClick = (project) => {
+    if (project.id === 1) {
+      // If Veri-Doc is already selected, open its link in a new tab
+      if (selectedProject.id === project.id) {
+        window.open(project.href, '_blank');
+      } else {
+        // Set Veri-Doc as the selected project and show its description
+        setSelectedProject(project);
+      }
+    } else {
+      // For other projects, simply set them as the selected project
+      setSelectedProject(project);
+    }
+  }
+
   return (
     <motion.section
       style={{ backgroundImage }}
       id="portfolio"
-      className="py-16 text-white" // Reduced padding
+      className="py-16 text-white"
     >
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-6xl font-bold mb-8"> {/* Reduced margin-bottom */}
+        <h2 className="text-6xl font-bold mb-8">
           My <span className="text-purple-500">Projects</span>
         </h2>
         {projects.map((project) => (
           <div
             key={project.id}
-            onClick={() => {
-              if (project.id === 1) {
-                window.open(project.href, '_blank');
-              } else {
-                setSelectedProject(project);
-              }
-            }}
-            className="cursor-pointer mb-8 group" // Reduced margin-bottom
+            onClick={() => handleProjectClick(project)} // Use handleProjectClick
+            className="cursor-pointer mb-8 group"
           >
-            <p className="text-gray-400 text-lg mb-1">{project.year}</p> {/* Reduced margin */}
+            <p className="text-gray-400 text-lg mb-1">{project.year}</p>
             <h3
               className={`text-3xl font-extrabold uppercase group-hover:text-gray-400 transition-colors duration-300 ${
                 selectedProject.id === project.id ? 'text-gray-200' : ''
@@ -89,7 +97,7 @@ export const Portfolio = () => {
               {project.title}
             </h3>
             {selectedProject.id === project.id && (
-              <div className="mt-4 flex flex-col md:flex-row items-start gap-6"> {/* Reduced gap */}
+              <div className="mt-4 flex flex-col md:flex-row items-start gap-6">
                 <p className="text-gray-400 transition-all duration-500 ease-in-out md:w-1/2">
                   {project.description}
                 </p>
