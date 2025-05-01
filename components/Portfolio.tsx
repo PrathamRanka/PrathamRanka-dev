@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion'
-import Image from 'next/image'
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
+import Image from 'next/image';
 
 const projects = [
   {
@@ -28,31 +30,31 @@ const projects = [
       'Developed a dynamic web application with text-to-speech capabilities, enabling users to convert written text into natural-sounding speech. The app supports multiple languages and allows users to adjust the speed and tone of the speech. Designed to be accessible and user-friendly, this app is aimed at people with visual impairments and those who prefer auditory learning. The app features a sleek, modern UI with real-time text-to-speech conversion and multiple voice options.',
     image: '/proj5.png',
   },
-]
+];
 
-const COLORS_TOP = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C']
+const COLORS_TOP = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C'];
 
 export const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState(null)
-  const color = useMotionValue(COLORS_TOP[0])
+  const [selectedProject, setSelectedProject] = useState(null);
+  const color = useMotionValue(COLORS_TOP[0]);
 
   useEffect(() => {
-    let index = 0
+    let index = 0;
     const loopColors = () => {
-      const nextColor = COLORS_TOP[(index + 1) % COLORS_TOP.length]
+      const nextColor = COLORS_TOP[(index + 1) % COLORS_TOP.length];
       animate(color, nextColor, {
         ease: 'easeInOut',
         duration: 4,
         onComplete: () => {
-          index = (index + 1) % COLORS_TOP.length
-          loopColors()
+          index = (index + 1) % COLORS_TOP.length;
+          loopColors();
         },
-      })
-    }
-    loopColors()
-  }, [color])
+      });
+    };
+    loopColors();
+  }, [color]);
 
-  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`
+  const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`;
 
   const handleProjectClick = (project) => {
     if (project.id === 1) {
@@ -70,7 +72,7 @@ export const Portfolio = () => {
         setSelectedProject(project); // Show the description
       }
     }
-  }
+  };
 
   return (
     <motion.section
@@ -99,8 +101,15 @@ export const Portfolio = () => {
             >
               {project.title}
             </h3>
+
             {selectedProject && selectedProject.id === project.id && (
-              <div className="mt-4 flex flex-col md:flex-row items-start gap-6">
+              <motion.div
+                className="mt-4 flex flex-col md:flex-row items-start gap-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}  // Close animation
+                transition={{ ease: 'easeInOut', duration: 0.75 }} // Added ease-in-out for closing
+              >
                 <p className="text-gray-400 transition-all duration-500 ease-in-out md:w-1/2">
                   {project.description}
                 </p>
@@ -113,11 +122,11 @@ export const Portfolio = () => {
                     height={250}
                   />
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         ))}
       </div>
     </motion.section>
-  )
-}
+  );
+};

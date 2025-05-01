@@ -25,7 +25,7 @@ const Stack = () => {
   return (
     <section className="py-16" style={{ backgroundColor: '#131313' }}>
       <div className="max-w-[1200px] mx-auto px-4">
-        <h2 className="text-5xl font-bold mb-8 text-white text-center">My Tech Stack</h2>
+        <h2 className="text-5xl font-bold mb-8 text-white text-center">My <span className='text-purple-500'>Tech Stack</span></h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {stackItems.map((item) => (
             <div
