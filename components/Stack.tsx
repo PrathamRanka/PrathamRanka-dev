@@ -6,7 +6,7 @@ import {
   SiNextdotjs,
   SiCplusplus,
   SiTypescript,
-  SiTailwindcss,
+  // SiTailwindcss,
   SiJavascript,
   SiC
 } from "react-icons/si";
