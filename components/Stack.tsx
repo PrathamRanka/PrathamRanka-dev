@@ -18,7 +18,7 @@ const stackItems = [
   { id: 4, name: 'React', icon: SiReact, color: '#61DAFB' },
   { id: 5, name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
   { id: 6, name: 'TypeScript', icon: SiTypescript, color: '#007ACC' },
-  { id: 7, name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' }
+  // { id: 7, name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' }
 ];
 
 const Stack = () => {

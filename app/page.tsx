@@ -7,12 +7,14 @@ import { KeyMetrics } from "@/components/KeyMetrics";
 import { Contact } from "@/components/Contact";
 import Footer from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
+import { Analytics } from "@vercel/analytics/react"
 
 
 export default function Home() {
 
   return (
     <>
+      <Analytics />
       <Navbar />
       <section id="about">
         <Hero />
