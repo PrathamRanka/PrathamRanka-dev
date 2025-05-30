@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
+import { motion, useMotionTemplate, useMotionValue, animate, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FaChevronDown } from "react-icons/fa";
 
@@ -31,11 +31,33 @@ const projects = [
     description:
       'Developed an interactive 3D periodic table using Three.js and CSS3DRenderer, featuring 118+ chemical elements with dynamic positioning across multiple layouts (table, sphere, helix, grid). Implemented real-time filtering by element properties, hover tooltips displaying atomic data, and color-coded classification system. Built responsive design with smooth TWEEN.js animations, TrackballControls for 3D navigation, and advanced visual effects including neon glows and focus/blur interactions. Designed as an educational tool to enhance understanding of chemical elements and their relationships through immersive 3D visualization.',
     image: '/proj5.png',
-    href: 'https://github.com/PrathamRanka/3-d-Periodic-table'
+    href: 'https://prathamranka.github.io/3-d-Periodic-table/'
   },
 ];
 
 const COLORS_TOP = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C'];
+
+const highlightDescription = (desc: string) => {
+  // Add more frameworks/keywords as needed
+  const keywords = [
+    'React', 'Next.js', 'Three.js', 'CSS3DRenderer', 'TWEEN.js', 'TrackballControls', 'blockchain',
+    'frontend', 'backend', 'AI', 'machine learning', 'UX', 'UI', 'Lighthouse', 'mobile', 'privacy', 'database',
+    'Veri-Doc', '3D Periodic Table Visualization', 'AI-Powered Crop Disease Detection Platform'
+  ];
+  // Regex for numbers
+  const numberRegex = /\b\d+(\.\d+)?%?\b/g;
+
+  // Bold keywords and frameworks
+  let html = desc;
+  keywords.forEach(word => {
+    const re = new RegExp(`\\b(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
+    html = html.replace(re, '<strong>$1</strong>');
+  });
+  // Bold numbers
+  html = html.replace(numberRegex, '<strong>$&</strong>');
+
+  return html;
+};
 
 export const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -110,47 +132,53 @@ export const Portfolio = () => {
                 </a>
               )}
             </h3>
-            {selectedProject && selectedProject.id === project.id && (
-              <motion.div
-                className="mt-4 flex flex-col md:flex-row items-start gap-4 sm:gap-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
-                transition={{ ease: 'easeInOut', duration: 0.75 }}
-              >
-                <ul
-                  className="text-gray-100 w-full md:w-1/2 text-sm sm:text-base md:text-lg leading-relaxed bg-gradient-to-br from-purple-900/40 to-gray-800/60 rounded-xl p-3 sm:p-4 md:p-6 shadow-lg border border-purple-700/30 list-disc list-inside space-y-2 sm:space-y-3"
-                  style={{
-                    fontFamily: 'Inter, system-ui, sans-serif',
-                    letterSpacing: '0.01em',
-                    lineHeight: 1.7,
-                    wordBreak: 'break-word',
-                  }}
+            <AnimatePresence initial={false}>
+              {selectedProject && selectedProject.id === project.id && (
+                <motion.div
+                  key="desc"
+                  className="mt-4 flex flex-col md:flex-row items-start gap-4 sm:gap-6"
+                  initial={{ opacity: 0, height: 0, y: 20 }}
+                  animate={{ opacity: 1, height: 'auto', y: 0 }}
+                  exit={{ opacity: 0, height: 0, y: 20 }}
+                  transition={{ ease: 'easeInOut', duration: 0.5 }}
                 >
-                  {project.description.split('. ').map((point, idx, arr) => {
-                    const cleanPoint = point.trim().replace(/\.$/, '');
-                    if (!cleanPoint) return null;
-                    return (
-                      <li key={idx}>
-                        {cleanPoint}
-                        {(idx === arr.length - 1 && !cleanPoint.endsWith('.')) ? '.' : ''}
-                      </li>
-                    );
-                  })}
-                </ul>
-                <div className="w-full md:w-1/2 md:order-2 flex justify-center items-center mt-4 md:mt-0">
-                  <Image
-                    src={selectedProject.image}
-                    alt={selectedProject.title}
-                    className="rounded-xl shadow-lg transition-opacity duration-500 ease-in-out object-cover"
-                    width={400}
-                    height={250}
-                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 400px"
-                    style={{ width: '100%', height: 'auto', maxWidth: 400 }}
-                  />
-                </div>
-              </motion.div>
-            )}
+                  <ul
+                    className="text-gray-100 w-full md:w-1/2 text-sm sm:text-base md:text-lg leading-relaxed bg-gradient-to-br from-purple-900/40 to-gray-800/60 rounded-xl p-3 sm:p-4 md:p-6 shadow-lg border border-purple-700/30 list-disc list-inside space-y-2 sm:space-y-3"
+                    style={{
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                      letterSpacing: '0.01em',
+                      lineHeight: 1.7,
+                      wordBreak: 'break-word',
+                    }}
+                  >
+                    {project.description.split('. ').map((point, idx, arr) => {
+                      const cleanPoint = point.trim().replace(/\.$/, '');
+                      if (!cleanPoint) return null;
+                      return (
+                        <li key={idx}>
+                          <span
+                            dangerouslySetInnerHTML={{
+                              __html: highlightDescription(cleanPoint + ((idx === arr.length - 1 && !cleanPoint.endsWith('.')) ? '.' : ''))
+                            }}
+                          />
+                        </li>
+                      );
+                    })}
+                  </ul>
+                  <div className="w-full md:w-1/2 md:order-2 flex justify-center items-center mt-4 md:mt-0">
+                    <Image
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="rounded-xl shadow-lg transition-opacity duration-500 ease-in-out object-cover"
+                      width={400}
+                      height={250}
+                      sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 400px"
+                      style={{ width: '100%', height: 'auto', maxWidth: 400 }}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         ))}
       </div>
