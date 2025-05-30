@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, useMotionTemplate, useMotionValue, animate } from 'framer-motion';
 import Image from 'next/image';
+import { FaChevronDown } from "react-icons/fa";
 
 const projects = [
   {
@@ -19,16 +20,18 @@ const projects = [
     year: 2025,
     title: 'AI-Powered Crop Disease Detection Platform',
     description:
-      'A web application that uses machine learning to identify crop diseases from images. Provided tailored treatment recommendations of wheat by linking predictions to a database of 15 wheat crop diseases.',
+      'A web application that uses machine learning to identify crop diseases from images. Provided tailored treatment recommendations of wheat by linking predictions to a database of 15 wheat crop diseases. Automated image upload and processing via a web interface for seamless AI predictions using backend services. Designed a user-friendly frontend enabling farmers to get diagnosis results in just 3 clicks, boosting adoption and ease of use.',
     image: '/proj5.png',
+    href: 'https://github.com/PrathamRanka/Wheat-Detector-'
   },
   {
     id: 3,
     year: 2024,
-    title: 'Text-2-Speech Web App',
+    title: '3D Periodic Table Visualization',
     description:
-      'Developed a dynamic web application with text-to-speech capabilities, enabling users to convert written text into natural-sounding speech. The app supports multiple languages and allows users to adjust the speed and tone of the speech. Designed to be accessible and user-friendly, this app is aimed at people with visual impairments and those who prefer auditory learning. The app features a sleek, modern UI with real-time text-to-speech conversion and multiple voice options.',
+      'Developed an interactive 3D periodic table using Three.js and CSS3DRenderer, featuring 118+ chemical elements with dynamic positioning across multiple layouts (table, sphere, helix, grid). Implemented real-time filtering by element properties, hover tooltips displaying atomic data, and color-coded classification system. Built responsive design with smooth TWEEN.js animations, TrackballControls for 3D navigation, and advanced visual effects including neon glows and focus/blur interactions. Designed as an educational tool to enhance understanding of chemical elements and their relationships through immersive 3D visualization.',
     image: '/proj5.png',
+    href: 'https://github.com/PrathamRanka/3-d-Periodic-table'
   },
 ];
 
@@ -57,20 +60,10 @@ export const Portfolio = () => {
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`;
 
   const handleProjectClick = (project) => {
-    if (project.id === 1) {
-      // If Veri-Doc is clicked, open the website in a new tab
-      if (selectedProject && selectedProject.id === project.id) {
-        window.open(project.href, '_blank');
-      } else {
-        setSelectedProject(project); // Show description if it's not already selected
-      }
+    if (selectedProject && selectedProject.id === project.id) {
+      setSelectedProject(null);
     } else {
-      // For other projects, toggle the description
-      if (selectedProject && selectedProject.id === project.id) {
-        setSelectedProject(null); // Close the description if already open
-      } else {
-        setSelectedProject(project); // Show the description
-      }
+      setSelectedProject(project);
     }
   };
 
@@ -78,48 +71,82 @@ export const Portfolio = () => {
     <motion.section
       style={{ backgroundImage }}
       id="portfolio"
-      className="py-16 text-white"
+      className="py-10 sm:py-14 md:py-16 text-white"
     >
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-6xl font-bold mb-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4">
+        <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 sm:mb-8">
           My <span className="text-purple-500">Projects</span>
         </h2>
         {projects.map((project) => (
           <div
             key={project.id}
-            onClick={() => handleProjectClick(project)} // Use handleProjectClick
+            onClick={() => handleProjectClick(project)}
             className="cursor-pointer mb-8 group"
           >
-            <p className="text-gray-400 text-lg mb-1">{project.year}</p>
+            <p className="text-gray-400 text-base sm:text-lg mb-1">{project.year}</p>
             <h3
-              className={`text-3xl font-extrabold uppercase group-hover:text-gray-400 transition-colors duration-300 ${
+              className={`flex items-center gap-2 text-xl sm:text-2xl md:text-3xl font-extrabold uppercase group-hover:text-gray-400 transition-colors duration-300 ${
                 selectedProject && selectedProject.id === project.id ? 'text-gray-200' : ''
-              }`}
+              } cursor-pointer`}
               style={{
                 textShadow: selectedProject && selectedProject.id === project.id ? '0 4px 6px rgba(0, 0, 0, 0.3)' : '',
               }}
             >
               {project.title}
+              <span
+                className={`transition-transform duration-300 ${selectedProject && selectedProject.id === project.id ? 'rotate-180' : ''}`}
+              >
+                <FaChevronDown />
+              </span>
+              {selectedProject && selectedProject.id === project.id && (
+                <a
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 sm:ml-4 inline-block px-3 sm:px-4 py-1 bg-purple-600 text-white rounded-lg shadow hover:bg-purple-700 transition-colors duration-200 text-sm sm:text-base font-semibold"
+                  onClick={e => e.stopPropagation()}
+                >
+                  Visit
+                </a>
+              )}
             </h3>
-
             {selectedProject && selectedProject.id === project.id && (
               <motion.div
-                className="mt-4 flex flex-col md:flex-row items-start gap-6"
+                className="mt-4 flex flex-col md:flex-row items-start gap-4 sm:gap-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}  // Close animation
-                transition={{ ease: 'easeInOut', duration: 0.75 }} // Added ease-in-out for closing
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ ease: 'easeInOut', duration: 0.75 }}
               >
-                <p className="text-gray-400 transition-all duration-500 ease-in-out md:w-1/2">
-                  {project.description}
-                </p>
-                <div className="md:w-1/2 md:order-2">
+                <ul
+                  className="text-gray-100 w-full md:w-1/2 text-sm sm:text-base md:text-lg leading-relaxed bg-gradient-to-br from-purple-900/40 to-gray-800/60 rounded-xl p-3 sm:p-4 md:p-6 shadow-lg border border-purple-700/30 list-disc list-inside space-y-2 sm:space-y-3"
+                  style={{
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                    letterSpacing: '0.01em',
+                    lineHeight: 1.7,
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {project.description.split('. ').map((point, idx, arr) => {
+                    const cleanPoint = point.trim().replace(/\.$/, '');
+                    if (!cleanPoint) return null;
+                    return (
+                      <li key={idx}>
+                        {cleanPoint}
+                        {(idx === arr.length - 1 && !cleanPoint.endsWith('.')) ? '.' : ''}
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="w-full md:w-1/2 md:order-2 flex justify-center items-center mt-4 md:mt-0">
                   <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    className="rounded-xl shadow-lg transition-opacity duration-500 ease-in-out"
+                    className="rounded-xl shadow-lg transition-opacity duration-500 ease-in-out object-cover"
                     width={400}
                     height={250}
+                    sizes="(max-width: 768px) 90vw, (max-width: 1200px) 45vw, 400px"
+                    style={{ width: '100%', height: 'auto', maxWidth: 400 }}
                   />
                 </div>
               </motion.div>

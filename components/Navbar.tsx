@@ -27,7 +27,11 @@ export const Navbar = () => {
             <li key={index}>
               <Link
                 href={link.path}
-                className="hover:text-white/70 transition-all duration-300 ease-in-out"
+                className="hover:text-white/70 transition-all duration-300 ease-in-out
+                           transform hover:scale-110 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(128,90,213,0.15)]"
+                style={{
+                  willChange: 'transform',
+                }}
               >
                 {link.title}
               </Link>
