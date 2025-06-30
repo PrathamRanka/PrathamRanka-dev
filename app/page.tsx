@@ -1,7 +1,6 @@
 "use client";
 import { Hero } from "@/components/Hero";
 import { Stack } from '@/components/Stack';
-import { LogoAnimation } from "@/components/LogoAnimation";
 import { Portfolio } from "@/components/Portfolio";
 import { KeyMetrics } from "@/components/KeyMetrics";
 import { Contact } from "@/components/Contact";
@@ -22,7 +21,7 @@ export default function Home() {
       <section id="stack">
         <Stack />
       </section>
-      <LogoAnimation />
+      
       <section id="portfolio">
         <Portfolio />
       </section>
@@ -31,6 +30,7 @@ export default function Home() {
         <Contact />
       </section>
       <Footer />
+     
     </>
   );
 }

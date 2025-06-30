@@ -73,7 +73,7 @@ export const Hero = () => {
                 </div>
 
                 <p className="my-6 max-w-xl text-center text-lg text-white font-semibold leading-relaxed">
-                    Passionate Frontend Developer from Patiala, crafting exceptional digital experiences with attention to detail, design, and usability.
+                    Passionate Full-Stack Developer from Patiala, crafting exceptional digital experiences with attention to detail, design, and usability.
                 </p>
 
                 {/* Center the "Download CV" button */}

@@ -1,13 +1,40 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, useMotionTemplate, useMotionValue, animate, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FaChevronDown } from "react-icons/fa";
 
-const projects = [
+type Project = {
+  id: number;
+  year: number;
+  title: string;
+  description: string;
+  image: string;
+  href: string;
+};
+
+const projects: Project[] = [
   {
     id: 1,
+    year: 2025,
+    title: 'Krypt DeFi',
+    description:
+      'Krypt DeFi is a decentralized finance web application that enables users to send cryptocurrency seamlessly using smart contracts. The platform offers a modern and responsive frontend built with React and Vite, and smart contracts written in Solidity deployed via Hardhat on Ethereum testnets or mainnet.',
+    image: '/proj5.png',
+    href: 'https://krypt-defi.vercel.app/',
+  },
+  {
+    id: 2,
+    year: 2025,
+    title: 'SitWise',
+    description:
+      'Built a modern web application for managing and visualizing library seat bookings with real-time analytics. Developed full stack using React, Vite, Node, and Supabase, with authentication and dynamic charts (Chartjs, Recharts). Designed a responsive UI with Tailwind CSS and Framer Motion for enhanced user experience.',
+    image: '/proj5.png',
+    href: 'https://github.com/PrathamRanka/SitWise',
+  },
+  {
+    id: 3,
     year: 2025,
     title: 'Veri-Doc',
     description:
@@ -16,51 +43,52 @@ const projects = [
     href: 'https://veri-doc.vercel.app/',
   },
   {
-    id: 2,
+    id: 4,
     year: 2025,
     title: 'AI-Powered Crop Disease Detection Platform',
     description:
       'A web application that uses machine learning to identify crop diseases from images. Provided tailored treatment recommendations of wheat by linking predictions to a database of 15 wheat crop diseases. Automated image upload and processing via a web interface for seamless AI predictions using backend services. Designed a user-friendly frontend enabling farmers to get diagnosis results in just 3 clicks, boosting adoption and ease of use.',
     image: '/proj5.png',
-    href: 'https://github.com/PrathamRanka/Wheat-Detector-'
+    href: 'https://github.com/PrathamRanka/Wheat-Detector-',
   },
   {
-    id: 3,
+    id: 5,
     year: 2024,
     title: '3D Periodic Table Visualization',
     description:
       'Developed an interactive 3D periodic table using Three.js and CSS3DRenderer, featuring 118+ chemical elements with dynamic positioning across multiple layouts (table, sphere, helix, grid). Implemented real-time filtering by element properties, hover tooltips displaying atomic data, and color-coded classification system. Built responsive design with smooth TWEEN.js animations, TrackballControls for 3D navigation, and advanced visual effects including neon glows and focus/blur interactions. Designed as an educational tool to enhance understanding of chemical elements and their relationships through immersive 3D visualization.',
     image: '/proj5.png',
-    href: 'https://prathamranka.github.io/3-d-Periodic-table/'
+    href: 'https://prathamranka.github.io/3-d-Periodic-table/',
   },
 ];
 
 const COLORS_TOP = ['#13FFAA', '#1E67C6', '#CE84CF', '#DD335C'];
 
-const highlightDescription = (desc: string) => {
-  // Add more frameworks/keywords as needed
-  const keywords = [
-    'React', 'Next.js', 'Three.js', 'CSS3DRenderer', 'TWEEN.js', 'TrackballControls', 'blockchain',
-    'frontend', 'backend', 'AI', 'machine learning', 'UX', 'UI', 'Lighthouse', 'mobile', 'privacy', 'database',
-    'Veri-Doc', '3D Periodic Table Visualization', 'AI-Powered Crop Disease Detection Platform'
-  ];
-  // Regex for numbers
-  const numberRegex = /\b\d+(\.\d+)?%?\b/g;
+const KEYWORDS = [
+  // Frameworks & Libraries
+  'React', 'Vite', 'Node', 'Supabase', 'Tailwind CSS', 'Framer Motion', 'Chart.js', 'Recharts', 'Solidity', 'Hardhat',
+  // Project/Domain Specific
+  'Krypt DeFi', 'SitWise', 'finance', 'cryptocurrency', 'smart contracts', 'Ethereum',
+  // Existing
+  'Next.js', 'Three.js', 'CSS3DRenderer', 'TWEEN.js', 'TrackballControls', 'blockchain',
+  'frontend', 'backend', 'AI', 'machine learning', 'UX', 'UI', 'Lighthouse', 'mobile', 'privacy', 'database',
+  'Veri-Doc', '3D Periodic Table Visualization', 'AI-Powered Crop Disease Detection Platform'
+];
 
-  // Bold keywords and frameworks
+const numberRegex = /\b\d+(\.\d+)?%?\b/g;
+
+function highlightDescription(desc: string) {
   let html = desc;
-  keywords.forEach(word => {
+  KEYWORDS.forEach(word => {
     const re = new RegExp(`\\b(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})\\b`, 'gi');
     html = html.replace(re, '<strong>$1</strong>');
   });
-  // Bold numbers
   html = html.replace(numberRegex, '<strong>$&</strong>');
-
   return html;
-};
+}
 
 export const Portfolio = () => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const color = useMotionValue(COLORS_TOP[0]);
 
   useEffect(() => {
@@ -81,13 +109,24 @@ export const Portfolio = () => {
 
   const backgroundImage = useMotionTemplate`radial-gradient(125% 125% at 50% 0%, #000 50%, ${color})`;
 
-  const handleProjectClick = (project) => {
-    if (selectedProject && selectedProject.id === project.id) {
-      setSelectedProject(null);
-    } else {
-      setSelectedProject(project);
-    }
-  };
+  const handleProjectClick = useCallback((project: Project) => {
+    setSelectedProject(prev =>
+      prev && prev.id === project.id ? null : project
+    );
+  }, []);
+
+  // Memoize the highlighted descriptions for all projects
+  const highlightedDescriptions = useMemo(() => {
+    return projects.reduce((acc, project) => {
+      // Split by period or newline, trim, and filter empty
+      const points = project.description
+        .split(/[\.\n]\s*/)
+        .map(point => point.trim())
+        .filter(Boolean);
+      acc[project.id] = points;
+      return acc;
+    }, {} as Record<number, string[]>);
+  }, []);
 
   return (
     <motion.section
@@ -151,19 +190,17 @@ export const Portfolio = () => {
                       wordBreak: 'break-word',
                     }}
                   >
-                    {project.description.split('. ').map((point, idx, arr) => {
-                      const cleanPoint = point.trim().replace(/\.$/, '');
-                      if (!cleanPoint) return null;
-                      return (
-                        <li key={idx}>
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: highlightDescription(cleanPoint + ((idx === arr.length - 1 && !cleanPoint.endsWith('.')) ? '.' : ''))
-                            }}
-                          />
-                        </li>
-                      );
-                    })}
+                    {highlightedDescriptions[project.id].map((point, idx, arr) => (
+                      <li key={idx}>
+                        <span
+                          dangerouslySetInnerHTML={{
+                            __html: highlightDescription(
+                              point + ((idx === arr.length - 1 && !point.endsWith('.')) ? '.' : '')
+                            )
+                          }}
+                        />
+                      </li>
+                    ))}
                   </ul>
                   <div className="w-full md:w-1/2 md:order-2 flex justify-center items-center mt-4 md:mt-0">
                     <Image
