@@ -38,7 +38,7 @@ const projects: Project[] = [
   {
     id: 3,
     year: 2025,
-    title: 'Veri-Doc',
+    title: 'Og-Doc',
     description:
       'I led the development of a responsive, light-themed frontend for a decentralized document verification platform that enables secure, tamper-proof verification without storing data centrally. By optimizing the UX, users could verify documents in just 3 clicks, reducing average time by 47%. The platform achieved a 100% Lighthouse mobile responsiveness score and completed over 200 successful verifications during testing. Collaborating with the blockchain team, we ensured a privacy-first design that empowers users with full document ownership and seamless cross-device access.',
     image: '/proj5.png',
