@@ -79,7 +79,7 @@ export const Hero = () => {
                 {/* Center the "Download CV" button */}
                 <motion.div className="flex justify-center items-center">
                     <a
-                        href="https://drive.google.com/uc?export=download&id=1s273o3pVF9d4gg3vMWqlGGaEHx_ypB7k"
+                        href="https://drive.google.com/uc?export=download&id=1IBSUVxrarBctqbsrTR5jdDtBHIkUYxTp"
                         download="Pratham_Ranka_Resume.pdf"
                     >
                         <motion.button
